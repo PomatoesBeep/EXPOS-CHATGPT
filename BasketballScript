@@ -1,0 +1,35 @@
+import openai
+import os
+from dotenv import load_dotenv
+
+# gets the API key from the env file 
+API_KEY = os.getenv("OPENAI_API_KEY")
+
+openai.api_key = API_KEY
+
+# prompts the chatbot with the prompt
+def gpt(prompt):
+    try:
+        response = openai.ChatCompletion.create(
+            # select the model, in this case we used ChatGPT 4.0, the default free model
+            model="gpt-4.0",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.7,  # Controls creativity
+            max_tokens=400     # Limits response length
+        )
+        
+        # Extract and return the chatbot's reply
+        reply = response['choices'][0]['message']['content']
+        return reply
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+# this is what the prompt of the chatbot is
+user_input = 
+
+reply = chat_with_gpt(user_input)
+print(f"ChatGPT: {reply}")
