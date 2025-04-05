@@ -30,7 +30,7 @@ def gpt(prompt):
     try:
         response = openai.ChatCompletion.create(
             # select the model, in this case we used ChatGPT 4.0, the default free model
-            model="gpt-4.0",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": CHATGPT_ROLE},
                 {"role": "user", "content": prompt}
