@@ -1,6 +1,1 @@
-Create a prediction bracket for the 2025 March Madness tournament based on historical trends, team performances from past seasons, and general basketball analytics—without looking up current data. Format the prediction as follows:
-Sweet Sixteen Teams: List sixteen teams that will make the Sweet Sixtenn
-Final Four Teams: List four teams that will make the Final Four.
-Champion: Predict the winner of the tournament.
-Cinderella Teams: Identify 2-3 lower-seeded teams that could make a deep run.
-Teams Likely to Disappoint: List 2-3 highly ranked teams that may underperform."
+
