@@ -3,9 +3,27 @@ import os
 from dotenv import load_dotenv
 
 # gets the API key from the env file 
+load_dotenv()
 API_KEY = os.getenv("OPENAI_API_KEY")
-
 openai.api_key = API_KEY
+
+# Number of times to repeat the prompt for testing purposes, can be adjusted as needed
+TIMES = 30 
+
+# role for the chatbot model, this defines how the chatbot will respond to the user
+CHATGPT_ROLE = "You are a financial analyst specializing in stock market analysis. Provide detailed and accurate information based on the user's queries. Always respond in a professional and definitive manner. You will only answer questions related to stock market analysis and financial data and background given by the user."
+
+# Collection of links or data to be used by the chatbot for reference, if any. This can be used to provide additional context or information to the model.
+REFERENCE_DATA = "These are the links for you to summarize and use as reference for your answers:\n\n"
+links = {
+    # Add any relevant links or data here in the format: "link_name": "link_url"
+    # Example: "financial_report": "https://example.com/report.pdf"
+
+}
+
+def format_links(link_dict):
+    return "\n".join([f"{name}: {url}" for name, url in link_dict.items()])
+
 
 # prompts the chatbot with the prompt
 def gpt(prompt):
@@ -14,7 +32,7 @@ def gpt(prompt):
             # select the model, in this case we used ChatGPT 4.0, the default free model
             model="gpt-4.0",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "system", "content": CHATGPT_ROLE},
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,  # Controls creativity
@@ -28,8 +46,10 @@ def gpt(prompt):
     except Exception as e:
         print(f"Error: {e}")
 
-# this is what the prompt of the chatbot is
-user_input = 
+# Combine everything into one user prompt
+REFERENCE_DATA = "Summarize the following financial articles:\n\n" + format_links(links)
 
-reply = chat_with_gpt(user_input)
-print(f"ChatGPT: {reply}")
+# repeat the prompt for a specified number of times to test the consistency and reliability of the chatbot's responses
+for _ in range(TIMES + 1):
+    reply = gpt(REFERENCE_DATA)
+    print(f"ChatGPT: {reply}")
