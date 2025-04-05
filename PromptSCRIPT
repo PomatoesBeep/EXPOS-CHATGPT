@@ -1,5 +1,6 @@
 import openai
 import os
+import json
 from dotenv import load_dotenv
 
 # gets the API key from the env file 
@@ -24,6 +25,8 @@ links = {
 def format_links(link_dict):
     return "\n".join([f"{name}: {url}" for name, url in link_dict.items()])
 
+with open("banned_tokens.json", "r") as f:
+    logit_bias = {int(k): v for k, v in json.load(f).items()}
 
 # prompts the chatbot with the prompt
 def gpt(prompt):
@@ -36,7 +39,8 @@ def gpt(prompt):
                 {"role": "user", "content": prompt}
             ],
             temperature=0.7,  # Controls creativity
-            max_tokens=400     # Limits response length
+            max_tokens=400,     # Limits response length
+            logitBias = logit_bias 
         )
         
         # Extract and return the chatbot's reply
